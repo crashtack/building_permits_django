@@ -55,7 +55,9 @@ ROOT_URLCONF = 'permits.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'maps', 'templates')],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'maps', 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

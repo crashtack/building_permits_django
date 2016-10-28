@@ -5,7 +5,7 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(
-        r'^map/$',
+        r'^map/(?P<pk>[0-9]+)$',
         MapView.as_view(),
         name='map'
     ),

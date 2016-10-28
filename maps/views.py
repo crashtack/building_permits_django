@@ -14,9 +14,9 @@ class MapView(DetailView):
     Shows a Map and with plotted points.
     """
     model = User
-    template = 'map.html'
+    template_name = 'maps/map.html'
 
-    def get_point(self, url):
+    def get_point(url):
         point = GeoIP2()
         return point.lat_lon(url)
 
@@ -27,5 +27,5 @@ class MapView(DetailView):
             'ec2-35-160-27-154.us-west-2.compute.amazonaws.com'
         )
         context['data'] = [{'lat': point[0], 'lng': point[1]}, ]
-
+        # import pdb; pdb.set_trace()
         return context
