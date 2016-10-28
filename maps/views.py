@@ -1,6 +1,7 @@
 import os
 from django.http import HttpResponse
 from django.views.generic import DetailView
+from django.contrib.auth.models import User
 from django.contrib.gis.geoip2 import GeoIP2
 
 
@@ -12,7 +13,7 @@ class MapView(DetailView):
     """
     Shows a Map and with plotted points.
     """
-
+    model = User
     template = 'map.html'
 
     def get_point(self, url):
