@@ -1,15 +1,22 @@
 from __future__ import unicode_literals
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
+from django.conf import settings
 
 
 class Permit(models.Model):
     """
     A Model for the permit data.
     """
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE,
+                             blank=True,
+                             null=True,
+                             related_name='permits',
+                             related_query_name='permits')
     permit_number = models.IntegerField('Permit Number')
     master_use_permit = models.IntegerField('Master Use Permit', blank=True)
-    action_type = models.CharField('Action Type', max_length=24, blank=True)
+    action_type = models.CharField('Action Type', max_length=25, blank=True)
     address = models.CharField('Address', max_length=50, blank=True)
     applicant_name = models.CharField('Applicant Name', max_length=24, blank=True)
     application_date = models.DateTimeField('Application Date', blank=True)
@@ -26,3 +33,29 @@ class Permit(models.Model):
     value = models.IntegerField('Value', blank=True)
     work_type = models.CharField('Work Type', max_length=24, blank=True)
     contractor = models.CharField('Contractor', max_length=55, blank=True)
+
+    def __unicode__(self):
+        return self.permit_number
+
+    def __str__(self):
+        return self.permit_number
+
+    class Meta:
+        ordering = ('application_date',)
+
+
+class List(models.Model):
+    """
+    A list of Permit
+    """
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE,
+                             blank=True,
+                             null=True,
+                             related_name='list',
+                             related_query_name='list')
+    permits = models.ManyToManyField('Permit',
+                                     related_name='list',
+                                     blank=True,
+                                     )
+    title = models.CharField('Title', name='title', max_length=24)
