@@ -12,23 +12,7 @@
 
 {% block body %}
   <div id="detail-route" class="jumbotron">
-  <div class="metadata">
-    <h3>
-      {% if route.title %}
-      {% endif %}
-    </h3>
-    <ul>
-      <li>Route description: {{ route.description }}</li>
-      <li>Route start: {{ route.start }}</li>
-      <li>Route end: {{ route.end }}</li>
-      <li>
-        Device:
-        <a href="{% url 'detail_device' device.pk %}">
-          {% if device.title %}{{ device.title }}{% else %}Link{% endif %}
-        </a>
-      </li>
-    </ul>
-  </div>
+  
   {% if data.count %}
   <div>
     <h3>Map of Data Points:</h3>
@@ -69,18 +53,5 @@
     </script>
   </div>
   {% endif %}
-  <div>
-    <h2>Most Recent Data Points</h2>
-    <ul>
-      {% for datum in data_ten %}
-        <li>
-          {{ datum.time }},
-          latitude {{ datum.lat }},
-          longitude {{ datum.lng }},
-          {{ datum.elevation }} meters
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
-  </div>
+
 {% endblock %}
