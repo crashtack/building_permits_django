@@ -18,19 +18,22 @@ class Command(BaseCommand):
     def _create_permit(self):
         """Add permits to database from JSON data"""
         # Reading data back
-        with open('curb.json', 'r') as f:
+        with open('construction.json', 'r') as f:
             data = json.load(f)
 
+        count = 1
         for perm in data:
-            permit = Permit(
-                permit_number=perm['application_permit_number'],
-                latitude=perm['latitude'],
-                longitude=perm['longitude'],
-            )
+            # permit = Permit(
+            #     permit_number=perm['application_permit_number'],
+            #     latitude=perm['latitude'],
+            #     longitude=perm['longitude'],
+            # )
             print("#: {}".format(perm['application_permit_number']))
             print('lat: {}'.format(perm['latitude']))
             print('lng: {}\n'.format(perm['longitude']))
-            permit.save()
+            # permit.save()
+            print('Count: {}'.format(count))
+            count += 1
 
     def _hello(self):
         """ Say Hello """

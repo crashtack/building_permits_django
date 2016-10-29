@@ -14,7 +14,7 @@ class Permit(models.Model):
                              null=True,
                              related_name='permits',
                              related_query_name='permits')
-    permit_number = models.IntegerField('Permit Number')
+    permit_number = models.IntegerField('Permit Number', unique=True)
     master_use_permit = models.IntegerField('Master Use Permit', blank=True, null=True)
     action_type = models.CharField('Action Type', max_length=25, blank=True)
     address = models.CharField('Address', max_length=50, blank=True)
