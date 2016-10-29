@@ -10,5 +10,5 @@ data = requests.get(url, params=payload)
 # data.json()
 
 # Writing JSON data
-with open('contruction.json', 'w') as f:
+with open('media/contruction.json', 'w') as f:
     json.dump(data.json(), f)
