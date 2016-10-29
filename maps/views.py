@@ -30,7 +30,8 @@ class MapView(DetailView):
             points.append({
                 'lat': pp.latitude,
                 'lng': pp.longitude,
-                'num': pp.permit_number
+                'num': pp.permit_number,
+                'description': pp.description,
             })
 
         context['data'] = points
