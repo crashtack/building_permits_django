@@ -3,6 +3,7 @@ from django.core.management.base import BaseCommand
 from django.db import IntegrityError
 import json
 from maps.models import Permit
+from math import floor
 
 
 class Command(BaseCommand):
@@ -42,7 +43,12 @@ class Command(BaseCommand):
 
         count = 0
         for perm in data:
-            if perm.get('final_date') is None:
+            if perm.get('final_date') is None and perm.get('latitude') and perm.get('longitude'):
+
+                if perm.get('description'):
+                    if len(perm.get('description')) >= 255:
+                        perm['description'] = perm.get('description')[0:255]
+
                 permit = Permit(
                     permit_number=perm['application_permit_number'],
                     latitude=perm['latitude'],
@@ -60,20 +66,23 @@ class Command(BaseCommand):
                     url=perm.get('permit_and_complaint_status_url'),
                     permit_type=perm.get('permit_type'),
                     status=perm.get('status'),
-                    value=perm.get('value'),
+                    value=int(perm.get('value')),
                     work_type=perm.get('work_type'),
                     contractor=perm.get('contractor'),
                 )
                 try:
+                    # print("Adding permit to DB: {}".format(perm))
                     permit.save()
-                    print("Adding permit to DB: {}".format(perm))
-                    print()
+                    # print()
                 except IntegrityError:
-                    print("Premit {} is already in the database".format(perm.get('application_permit_number')))
+                    # print("Premit {} is already in the database".format(perm.get('application_permit_number')))
+                    pass
 
                 count += 1
-                if count > 2:
-                    return
+
+        print('count: {}'.format(count))
+                # if count > 2:
+                #     return
 
     def _list_permits():
         pass

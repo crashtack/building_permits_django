@@ -18,7 +18,7 @@ class Permit(models.Model):
     master_use_permit = models.IntegerField('Master Use Permit', blank=True, null=True)
     action_type = models.CharField('Action Type', max_length=25, blank=True, null=True)
     address = models.CharField('Address', max_length=50, blank=True, null=True)
-    applicant_name = models.CharField('Applicant Name', max_length=24, blank=True, null=True)
+    applicant_name = models.CharField('Applicant Name', max_length=128, blank=True, null=True)
 
     date_created = models.DateField('Date Created', auto_now_add=True)
     date_modified = models.DateField('Date Modified', auto_now=True)
@@ -33,10 +33,10 @@ class Permit(models.Model):
     longitude = models.FloatField('Longitude', blank=True)
     url = models.URLField('URL', blank=True, null=True)
     permit_type = models.CharField('Type', max_length=24, blank=True, null=True)
-    status = models.CharField('Status', max_length=32, blank=True, null=True)
-    value = models.IntegerField('Value', blank=True, null=True)
+    status = models.CharField('Status', max_length=55, blank=True, null=True)
+    value = models.FloatField('Value', blank=True, null=True)
     work_type = models.CharField('Work Type', max_length=24, blank=True, null=True)
-    contractor = models.CharField('Contractor', max_length=55, blank=True, null=True)
+    contractor = models.CharField('Contractor', max_length=128, blank=True, null=True)
 
     def __unicode__(self):
         return ''.format(self.permit_number)

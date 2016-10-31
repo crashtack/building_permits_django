@@ -4,10 +4,18 @@ from django.views.generic import DetailView
 from django.contrib.auth.models import User
 from django.contrib.gis.geoip2 import GeoIP2
 from maps.models import Permit
+from django.shortcuts import render
 
 
 def index(request):
     return HttpResponse("Hello, world")
+
+
+def user_location(request):
+    """ View for the test map"""
+    context = {'name': 'fred'}
+    context['googleapikey'] = os.environ.get('GOOGLE_MAPS_API_KEY')
+    return render(request, 'maps/noisy.html', context)
 
 
 class MapView(DetailView):
