@@ -1,10 +1,13 @@
 import os
 from django.http import HttpResponse
 from django.views.generic import DetailView
+from django.views.generic.edit import FormView
 from django.contrib.auth.models import User
 from django.contrib.gis.geoip2 import GeoIP2
 from maps.models import Permit
 from django.shortcuts import render
+from maps.forms import NameForm
+from django.urls import reverse_lazy
 
 
 def index(request):
@@ -66,4 +69,22 @@ class TestMapView(DetailView):
         )
         context['data'] = [{'lat': point[0], 'lng': point[1]}, ]
         # import pdb; pdb.set_trace()
+        return context
+
+
+class FormTestView(FormView):
+    template_name = 'form.html'
+    form_class = NameForm
+    success_url = reverse_lazy('form')
+    name = ''
+
+    def form_valid(self, form):
+        self.name = form.cleaned_data['name']
+        form.send_email()
+        return super(FormTestView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(FormTestView, self).get_context_data(**kwargs)
+        import pdb; pdb.set_trace()
+        context['name'] = self.name
         return context
