@@ -39,10 +39,10 @@ class Permit(models.Model):
     contractor = models.CharField('Contractor', max_length=128, blank=True, null=True)
 
     def __unicode__(self):
-        return ''.format(self.permit_number)
+        return '{}'.format(self.permit_number)
 
     def __str__(self):
-        return ''.format(self.permit_number)
+        return '{}'.format(self.permit_number)
 
     class Meta:
         ordering = ('application_date',)

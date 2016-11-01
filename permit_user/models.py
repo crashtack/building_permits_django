@@ -45,6 +45,12 @@ class PermitUser(models.Model):
     bio = models.CharField('Bio',
                            max_length=1024,
                            blank=True)
+    latitude = models.FloatField('Latitude', blank=True, null=True)
+    longitude = models.FloatField('Longitude', blank=True, null=True)
+    location = models.CharField('Location',
+                                max_length=128,
+                                blank=True,
+                                null=True)
 
     def __str__(self):
         return self.user.get_full_name() or self.user.username
