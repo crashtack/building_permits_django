@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Permit, List
 
-# Register your models here.
+
+admin.site.register(Permit)
+admin.site.register(List)
