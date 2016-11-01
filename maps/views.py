@@ -8,6 +8,9 @@ from maps.models import Permit
 from django.shortcuts import render
 from maps.forms import NameForm
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+from django.views.generic import UpdateView
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -79,7 +82,7 @@ class FormTestView(FormView):
     name = ''
 
     def form_valid(self, form):
-        self.name = form.cleaned_data['name']
+        self.name = form.cleaned_data['location']
         form.send_email()
         return super(FormTestView, self).form_valid(form)
 
@@ -88,3 +91,19 @@ class FormTestView(FormView):
         # import pdb; pdb.set_trace()
         context['name'] = self.name
         return context
+
+
+@method_decorator(login_required, name='dispatch')
+class EditUserLocationView(UpdateView):
+    """
+    Edit the PermitUsers current location based no the the search
+    address they enter
+    """
+    form_class = NameForm
+    template_name = 'form.html'
+    success_url = reverse_lazy('form')
+
+    def get_form_kwargs(self):
+        kwargs = super(EditUserLocationView, self).get_form_kwargs()
+        kwargs.update({'permituser': self.request.user})
+        return kwargs

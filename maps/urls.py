@@ -1,11 +1,16 @@
 from django.conf.urls import url
-from maps.views import MapView, user_location, FormTestView
+from maps.views import (
+    MapView,
+    user_location,
+    FormTestView,
+    EditUserLocationView,
+)
 from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^form/$',
-        FormTestView.as_view(),
+        EditUserLocationView.as_view(),
         name='form'),
     url(r'^location/$',
         user_location,
