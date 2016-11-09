@@ -4,40 +4,20 @@ from django.db import IntegrityError
 import json
 from maps.models import Permit
 from math import floor
+import sys, os
+sys.path.append(os.path.join(os.environ.get('PWD', ''), 'permit_user'))
+from permit_user.models import PermitUser
 
 
 class Command(BaseCommand):
     args = '<foo bar ...>'
     help = 'our help string comes here'
 
-    def _create_permit(self):
-        """Add permits to database from JSON data"""
-        # Reading data back
-        # file_path = 'media/contruction.json'
-        file_path = 'curb.json'
-        with open(file_path, 'r') as f:
-            data = json.load(f)
-
-        count = 0
-        for perm in data:
-            # permit = Permit(
-            #     permit_number=perm['application_permit_number'],
-            #     latitude=perm['latitude'],
-            #     longitude=perm['longitude'],
-            # )
-            if perm.get('final_date') is None:
-                print("#: {}".format(perm['application_permit_number']))
-                print('lat: {}'.format(perm['latitude']))
-                print('lng: {}\n'.format(perm['longitude']))
-        #     # permit.save()
-                count += 1
-        print('Count: {}'.format(count))
-        # for key in data[0].keys():
-            # print(key)
-
     def _save_permit_to_database(self):
         """Add a permit to the database"""
         file_path = 'media/contruction.json'
+        permit_user = PermitUser.objects.filter(user=1).first()
+
         with open(file_path, 'r') as f:
             data = json.load(f)
 
@@ -50,6 +30,7 @@ class Command(BaseCommand):
                         perm['description'] = perm.get('description')[0:255]
 
                 permit = Permit(
+                    permit_user=permit_user,
                     permit_number=perm['application_permit_number'],
                     latitude=perm['latitude'],
                     longitude=perm['longitude'],
@@ -80,12 +61,19 @@ class Command(BaseCommand):
 
                 count += 1
 
+            # uncomment to only add x number of permit
+            x = 100
+            if count >= x:
+                return
+
         print('count: {}'.format(count))
-                # if count > 2:
-                #     return
 
     def _list_permits():
         pass
+
+    def _list_permit_user(self):
+        pu = PermitUser.objects.filter(user=1).first()
+        print("Permit User: {}".format(pu.user.username))
 
     def _hello(self):
         """ Say Hello """
@@ -93,5 +81,5 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self._hello()
-        # self._create_permit()
+        self._list_permit_user()
         self._save_permit_to_database()

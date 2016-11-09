@@ -1,3 +1,6 @@
+from __future__ import unicode_literals
+from django.utils.encoding import python_2_unicode_compatible
+from django.conf import settings
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.dispatch import receiver
@@ -41,7 +44,7 @@ class PermitUser(models.Model):
                                  )
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE,
-                                related_name='photographer',)
+                                related_name='permituser',)
     bio = models.CharField('Bio',
                            max_length=1024,
                            blank=True)

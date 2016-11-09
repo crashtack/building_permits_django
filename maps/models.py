@@ -2,18 +2,19 @@ from __future__ import unicode_literals
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from django.conf import settings
+import os, sys
+sys.path.append(os.path.join(os.environ.get('PWD', ''), 'permit_user'))
+from permit_user.models import PermitUser
 
 
 class Permit(models.Model):
     """
     A Model for the permit data.
     """
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE,
-                             blank=True,
-                             null=True,
-                             related_name='permits',
-                             related_query_name='permits')
+    permit_user = models.ForeignKey(PermitUser,
+                                    on_delete=models.CASCADE,
+                                    related_name='permit',
+                                    related_query_name='permit')
     permit_number = models.IntegerField('Permit Number', unique=True)
     master_use_permit = models.IntegerField('Master Use Permit', blank=True, null=True)
     action_type = models.CharField('Action Type', max_length=25, blank=True, null=True)
@@ -48,18 +49,18 @@ class Permit(models.Model):
         ordering = ('application_date',)
 
 
-class List(models.Model):
-    """
-    A list of Permit
-    """
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE,
-                             blank=True,
-                             null=True,
-                             related_name='list',
-                             related_query_name='list')
-    permits = models.ManyToManyField('Permit',
-                                     related_name='list',
-                                     blank=True,
-                                     )
-    title = models.CharField('Title', name='title', max_length=24)
+# class List(models.Model):
+#     """
+#     A list of Permit
+#     """
+#     user = models.ForeignKey(settings.AUTH_USER_MODEL,
+#                              on_delete=models.CASCADE,
+#                              blank=True,
+#                              null=True,
+#                              related_name='list',
+#                              related_query_name='list')
+#     permits = models.ManyToManyField('Permit',
+#                                      related_name='list',
+#                                      blank=True,
+#                                      )
+#     title = models.CharField('Title', name='title', max_length=24)
