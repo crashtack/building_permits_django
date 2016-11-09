@@ -113,15 +113,21 @@ class EditUserLocationView(UpdateView):
     template_name = 'form.html'
     success_url = reverse_lazy('form')
 
-    def get_object(self):
-        self.user = self.request.user.permituser
-        return self.user
-
-    def get_context_data(self, **kwargs):
-        context = super(EditUserLocationView, self).get_context_data(**kwargs)
-        # import pdb; pdb.set_trace()
-        context['user'] = self.user
-        return context
+    # def get_object(self):
+    #     self.user = self.request.user.permituser
+    #     return self.user
+    #
+    # def get_context_data(self, **kwargs):
+    #     context = super(EditUserLocationView, self).get_context_data(**kwargs)
+    #     # import pdb; pdb.set_trace()
+    #     context['user'] = self.user
+    #     return context
+    #
+    # def get_form(self, *args, **kwargs):
+    #     form = super(EditUserLocationView, self).get_form(*args, **kwargs)
+    #     # form.fields['bio'] = form.fields.CharField(initial=self.user.permituser.bio)
+    #     form.fields['bio'] = form.fields.CharField(initial="yo")
+    #     return form
 
     # def get_form_kwargs(self):
     #     kwargs = super(EditUserLocationView, self).get_form_kwargs()
