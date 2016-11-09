@@ -4,6 +4,9 @@ from django.db import IntegrityError
 import json
 from maps.models import Permit
 from math import floor
+import sys, os
+sys.path.append(os.path.join(os.environ.get('PWD', ''), 'permit_user'))
+from permit_user.models import PermitUser
 
 
 class Command(BaseCommand):
@@ -38,6 +41,8 @@ class Command(BaseCommand):
     def _save_permit_to_database(self):
         """Add a permit to the database"""
         file_path = 'media/contruction.json'
+        permit_user = PermitUser.objects.filter(user=1).first()
+
         with open(file_path, 'r') as f:
             data = json.load(f)
 
@@ -50,6 +55,7 @@ class Command(BaseCommand):
                         perm['description'] = perm.get('description')[0:255]
 
                 permit = Permit(
+                    permit_user=permit_user,
                     permit_number=perm['application_permit_number'],
                     latitude=perm['latitude'],
                     longitude=perm['longitude'],
@@ -87,11 +93,15 @@ class Command(BaseCommand):
     def _list_permits():
         pass
 
+    def _list_permit_user(self):
+        pu = PermitUser.objects.filter(user=1).first()
+        print("Permit User: {}".format(pu.user.username))
+
     def _hello(self):
         """ Say Hello """
         print('hello\n')
 
     def handle(self, *args, **options):
         self._hello()
-        # self._create_permit()
-        self._save_permit_to_database()
+        # self._save_permit_to_database()
+        self._list_permit_user()

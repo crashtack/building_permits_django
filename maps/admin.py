@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Permit, List
+from .models import Permit
 
 
 admin.site.register(Permit)
-admin.site.register(List)
+# admin.site.register(List)

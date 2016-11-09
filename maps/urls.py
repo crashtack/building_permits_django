@@ -1,11 +1,8 @@
 from django.conf.urls import url
-from maps.views import (
-    MapView,
-    user_location,
-    FormTestView,
-    EditUserLocationView,
-)
 from . import views
+from maps.views import MapView, user_location, FormTestView
+from maps.views import EditUserLocationView
+
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -20,5 +17,4 @@ urlpatterns = [
         MapView.as_view(),
         name='map'
     ),
-
 ]

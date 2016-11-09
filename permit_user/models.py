@@ -41,7 +41,7 @@ class PermitUser(models.Model):
                                  )
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE,
-                                related_name='photographer',)
+                                related_name='permituser',)
     bio = models.CharField('Bio',
                            max_length=1024,
                            blank=True)
