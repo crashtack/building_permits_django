@@ -114,8 +114,14 @@ class EditUserLocationView(UpdateView):
     success_url = reverse_lazy('form')
 
     def get_object(self):
-        return self.request.user.permituser
+        self.user = self.request.user.permituser
+        return self.user
 
+    def get_context_data(self, **kwargs):
+        context = super(EditUserLocationView, self).get_context_data(**kwargs)
+        # import pdb; pdb.set_trace()
+        context['user'] = self.user
+        return context
 
     # def get_form_kwargs(self):
     #     kwargs = super(EditUserLocationView, self).get_form_kwargs()
