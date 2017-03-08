@@ -12,6 +12,9 @@ class Permit(models.Model):
     """
     A Model for the permit data.
     """
+    owner = models.ForeignKey('auth.User',
+                              related_name='books',
+                              on_delete=models.CASCADE)
     # permit_user = models.ForeignKey(PermitUser,
     #                                 on_delete=models.CASCADE,
     #                                 related_name='permit',
@@ -64,6 +67,7 @@ class Permit(models.Model):
                                   max_length=128,
                                   blank=True,
                                   null=True)
+    foo_bar = models.CharField('Foo_Bar', max_length=32)
 
     def __unicode__(self):
         return '{}'.format(self.permit_number)
@@ -75,18 +79,9 @@ class Permit(models.Model):
         ordering = ('application_date',)
 
 
-# class List(models.Model):
-#     """
-#     A list of Permit
-#     """
-#     user = models.ForeignKey(settings.AUTH_USER_MODEL,
-#                              on_delete=models.CASCADE,
-#                              blank=True,
-#                              null=True,
-#                              related_name='list',
-#                              related_query_name='list')
-#     permits = models.ManyToManyField('Permit',
-#                                      related_name='list',
-#                                      blank=True,
-#                                      )
-#     title = models.CharField('Title', name='title', max_length=24)
+class FOO_BAR(models.Model):
+    """ Fake test model """
+    owner = models.ForeignKey('auth.User',
+                              related_name='foo_bar',
+                              on_delete=models.CASCADE)
+    foo = models.CharField('foo', max_length=32, default='foo')

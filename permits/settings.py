@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'maps',
-    # 'permit_user',
 ]
 
 MIDDLEWARE = [
@@ -57,8 +56,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'maps', 'templates'),
-            os.path.join(BASE_DIR, 'permit_user', 'templates'),
+            # os.path.join(BASE_DIR, 'maps', 'templates'),
+            # # os.path.join(BASE_DIR, 'permit_user', 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
