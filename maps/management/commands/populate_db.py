@@ -3,11 +3,11 @@ from django.core.management.base import BaseCommand
 from django.db import IntegrityError
 import json
 from maps.models import Permit
-from math import floor
-import sys
-import os
-sys.path.append(os.path.join(os.environ.get('PWD', ''), 'permit_user'))
-from permit_user.models import PermitUser
+# from math import floor
+# import sys
+# import os
+# sys.path.append(os.path.join(os.environ.get('PWD', ''), 'permit_user'))
+# from permit_user.models import PermitUser
 
 
 class Command(BaseCommand):
