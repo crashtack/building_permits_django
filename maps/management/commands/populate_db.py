@@ -17,7 +17,7 @@ class Command(BaseCommand):
     def _save_permit_to_database(self):
         """Add a permit to the database"""
         file_path = 'media/contruction.json'
-        permit_user = PermitUser.objects.filter(user=1).first()
+        # permit_user = PermitUser.objects.filter(user=1).first()
 
         with open(file_path, 'r') as f:
             data = json.load(f)
@@ -31,7 +31,7 @@ class Command(BaseCommand):
                         perm['description'] = perm.get('description')[0:255]
 
                 permit = Permit(
-                    permit_user=permit_user,
+                    # permit_user=permit_user,
                     permit_number=perm['application_permit_number'],
                     latitude=perm['latitude'],
                     longitude=perm['longitude'],
@@ -72,9 +72,9 @@ class Command(BaseCommand):
     def _list_permits():
         pass
 
-    def _list_permit_user(self):
-        pu = PermitUser.objects.filter(user=1).first()
-        print("Permit User: {}".format(pu.user.username))
+    # def _list_permit_user(self):
+    #     pu = PermitUser.objects.filter(user=1).first()
+    #     print("Permit User: {}".format(pu.user.username))
 
     def _hello(self):
         """ Say Hello """
@@ -82,5 +82,5 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self._hello()
-        self._list_permit_user()
+        # self._list_permit_user()
         self._save_permit_to_database()

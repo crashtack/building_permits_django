@@ -21,6 +21,6 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^admin/', admin.site.urls),
     url(r'^maps/', include('maps.urls')),
-    url(r'^user/', include('permit_user.urls')),
+    # url(r'^user/', include('permit_user.urls')),
 
 ]

@@ -1,3 +1,8 @@
+"""
+    Downloads Seattle Permit database and save it
+    to a json file stored in the media folder
+"""
+
 import requests
 import json
 

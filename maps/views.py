@@ -11,9 +11,9 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView
 from django.contrib.auth.decorators import login_required
-import sys
-sys.path.append(os.path.join(os.environ.get('PWD', ''), 'permit_user'))
-from permit_user.models import PermitUser
+# import sys
+# sys.path.append(os.path.join(os.environ.get('PWD', ''), 'permit_user'))
+# from permit_user.models import PermitUser
 
 
 def index(request):
@@ -96,22 +96,22 @@ class FormTestView(FormView):
         return context
 
 
-@method_decorator(login_required, name='dispatch')
-class EditUserLocationView(UpdateView):
-    """
-    Edit the PermitUsers current location based no the the search
-    address they enter
-    """
-    model = PermitUser
-    # form_class = NameForm
-    fields = [
-        'bio',
-        'latitude',
-        'longitude',
-        'location',
-    ]
-    template_name = 'form.html'
-    success_url = reverse_lazy('form')
+# @method_decorator(login_required, name='dispatch')
+# class EditUserLocationView(UpdateView):
+#     """
+#     Edit the PermitUsers current location based no the the search
+#     address they enter
+#     """
+#     model = PermitUser
+#     # form_class = NameForm
+#     fields = [
+#         'bio',
+#         'latitude',
+#         'longitude',
+#         'location',
+#     ]
+#     template_name = 'form.html'
+#     success_url = reverse_lazy('form')
 
     # def get_object(self):
     #     self.user = self.request.user.permituser
